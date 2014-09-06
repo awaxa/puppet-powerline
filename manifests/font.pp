@@ -1,9 +1,12 @@
 # installs a font file
-define powerline::font {
-  $font = split($title, '/')
-  $font_name = $font[1]
-  file { "${::powerline::font_library}/${font_name}":
+define powerline::font (
+  $clone_dir    = $powerline::clone_dir,
+  $font_library = $powerline::font_library,
+) {
+  $relative_path = split($title, '/')
+  $basename = $relative_path[1]
+  file { "${font_library}/${basename}":
     ensure  => file,
-    source  => "${::powerline::clone_dir}/${title}",
+    source  => "${clone_dir}/${title}",
   }
 }
