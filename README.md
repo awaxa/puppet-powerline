@@ -5,7 +5,9 @@
 ## Usage
 
 ```puppet
-include powerline
+class { 'powerline':
+  manage_font_library_dir => true,
+}
 ```
 
 ## Required Puppet Modules
