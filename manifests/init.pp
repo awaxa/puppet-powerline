@@ -1,9 +1,10 @@
 # installs powerline fonts
 class powerline (
-  $repository   = 'Lokaltog/powerline-fonts',
-  $clone_dir    = "${::boxen_srcdir}/powerline-fonts",
-  $font_library = "/Users/${::boxen_user}/Library/Fonts",
-  $fonts        = [
+  $repository              = 'Lokaltog/powerline-fonts',
+  $clone_dir               = "${::boxen_srcdir}/powerline-fonts",
+  $font_library            = "/Users/${::boxen_user}/Library/Fonts",
+  $manage_font_library_dir = false,
+  $fonts                   = [
     'DroidSansMono/Droid Sans Mono for Powerline.otf',
     'Inconsolata-g/Inconsolata-g for Powerline.otf',
     'Inconsolata/Inconsolata for Powerline.otf',
@@ -27,6 +28,12 @@ class powerline (
   repository { $clone_dir:
     ensure => present,
     source => $repository,
+  }
+
+  if $manage_font_library_dir == true {
+    file { $font_library:
+      ensure => directory,
+    }
   }
 
   powerline::font { $fonts:
